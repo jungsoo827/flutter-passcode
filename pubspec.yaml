@@ -10,6 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_svg: ^0.14.1
 
 dev_dependencies:
   flutter_test:
@@ -17,3 +18,5 @@ dev_dependencies:
   mockito: ^4.0.0
 
 flutter:
+  assets:
+    - images/password_popup.svg

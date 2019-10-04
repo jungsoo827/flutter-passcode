@@ -3,6 +3,7 @@ library passcode_screen;
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:passcode_screen/circle.dart';
 import 'package:passcode_screen/keyboard.dart';
 import 'package:passcode_screen/shake_curve.dart';
@@ -17,6 +18,7 @@ class PasscodeScreen extends StatefulWidget {
   final Color titleColor;
   final Color backgroundColor;
   final PasswordEnteredCallback passwordEnteredCallback;
+  final TextStyle titleTextStyle;
 
   //isValidCallback will be invoked after passcode screen will pop.
   final IsValidCallback isValidCallback;
@@ -31,6 +33,7 @@ class PasscodeScreen extends StatefulWidget {
   PasscodeScreen({
     Key key,
     @required this.title,
+    this.titleTextStyle,
     this.passwordDigits = 6,
     @required this.passwordEnteredCallback,
     @required this.cancelLocalizedText,
@@ -85,13 +88,19 @@ class _PasscodeScreenState extends State<PasscodeScreen> with SingleTickerProvid
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            SvgPicture.asset(
+              'images/password_popup.svg',
+              height: 140,
+              width: 140,
+            ),
+            SizedBox(height: 10),
             Text(
               widget.title,
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 20, color: widget.titleColor, fontWeight: FontWeight.w300),
+              style: widget.titleTextStyle != null ? widget.titleTextStyle: TextStyle(fontSize: 20, color: widget.titleColor, fontWeight: FontWeight.w300),
             ),
             Container(
-              margin: const EdgeInsets.only(top: 20, left: 60, right: 60),
+              margin: const EdgeInsets.only(top: 10, left: 60, right: 60),
               height: 40,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -100,7 +109,7 @@ class _PasscodeScreenState extends State<PasscodeScreen> with SingleTickerProvid
             ),
             IntrinsicHeight(
               child: Container(
-                margin: const EdgeInsets.only(top: 20, left: 40, right: 40),
+                margin: const EdgeInsets.only(top: 0, left: 40, right: 40),
                 child: Keyboard(
                   onDeleteCancelTap: _onDeleteCancelButtonPressed,
                   onKeyboardTap: _onKeyboardButtonPressed,
